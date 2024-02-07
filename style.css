@@ -1,0 +1,36 @@
+body {
+    background: radial-gradient(circle at top right, #0f0c29, #302b63, #24243e);
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #08f7fe;  /* Neon Blue */
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #fe53bb;  /* Neon Pink */
+    text-shadow: 3px 3px #f5d300;  /* Neon Yellow */
+}
+
+button {
+    background-color: #08f7fe;  /* Neon Blue */
+    border: none;
+    color: #0f0c29;  /* Dark Blue */
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fe53bb;  /* Neon Pink */
+    color: white;
+}
+
+p {
+    font-size: 1.2em;
+    color: #f5d300;  /* Neon Yellow */
+}
