@@ -1,36 +1,287 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background: radial-gradient(circle at top right, #0f0c29, #302b63, #24243e);
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    color: #08f7fe;  /* Neon Blue */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 h1 {
-    font-size: 2.5em;
-    color: #fe53bb;  /* Neon Pink */
-    text-shadow: 3px 3px #f5d300;  /* Neon Yellow */
+    font-size: 2rem;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 button {
-    background-color: #08f7fe;  /* Neon Blue */
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #00ffff, #0080ff);
     border: none;
-    color: #0f0c29;  /* Dark Blue */
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
+    border-radius: 25px;
+    color: white;
     cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
 }
 
 button:hover {
-    background-color: #fe53bb;  /* Neon Pink */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+    background: linear-gradient(45deg, #ff00ff, #ff0080);
+}
+
+select {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+select option {
+    background: #1e3c72;
     color: white;
 }
 
-p {
-    font-size: 1.2em;
-    color: #f5d300;  /* Neon Yellow */
+#scene-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#element-info {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+#element-info.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.element-card {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    min-width: 350px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.element-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.atomic-number {
+    font-size: 1.2rem;
+    color: #00ffff;
+    font-weight: bold;
+}
+
+.element-symbol {
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.element-name {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.element-details p {
+    margin-bottom: 10px;
+    color: #cccccc;
+}
+
+.element-details strong {
+    color: #00ffff;
+}
+
+#closeInfo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    padding: 0;
+}
+
+#closeInfo:hover {
+    background: rgba(255, 0, 0, 0.4);
+    transform: none;
+    box-shadow: none;
+}
+
+#legend {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 300px;
+}
+
+#legend h4 {
+    margin-bottom: 15px;
+    color: #00ffff;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.color-box {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Element category colors */
+.alkali-metal { background-color: #ff6b6b; }
+.alkaline-earth { background-color: #feca57; }
+.transition-metal { background-color: #48dbfb; }
+.post-transition { background-color: #ff9ff3; }
+.metalloid { background-color: #54a0ff; }
+.nonmetal { background-color: #5f27cd; }
+.halogen { background-color: #00d2d3; }
+.noble-gas { background-color: #ff6348; }
+.lanthanide { background-color: #1dd1a1; }
+.actinide { background-color: #feca57; }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .controls {
+        justify-content: center;
+    }
+    
+    .element-card {
+        min-width: 280px;
+        padding: 20px;
+    }
+    
+    #legend {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+    
+    .legend-items {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hidden {
+    display: none !important;
 }
