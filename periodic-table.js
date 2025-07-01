@@ -64,6 +64,20 @@ class PeriodicTable3D {
         this.controls.minDistance = 10;
         this.controls.maxDistance = 100;
         this.controls.target.set(9, 0, 0); // Center on the middle of the periodic table
+        
+        // Mobile optimizations
+        this.controls.enablePan = true;
+        this.controls.enableZoom = true;
+        this.controls.enableRotate = true;
+        this.controls.rotateSpeed = 0.5;
+        this.controls.zoomSpeed = 0.8;
+        this.controls.panSpeed = 0.8;
+        
+        // Touch-specific settings
+        this.controls.touches = {
+            ONE: THREE.TOUCH.ROTATE,
+            TWO: THREE.TOUCH.DOLLY_PAN
+        };
     }
 
     setupLighting() {
