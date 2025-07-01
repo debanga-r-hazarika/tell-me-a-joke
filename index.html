@@ -1,13 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tell Me a Joke Game</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>3D Interactive Periodic Table</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Tell Me a Joke Game</h1>
-    <button id="jokeButton">Tell me a joke</button>
-    <p id="joke"></p>
-    <script src="game.js"></script>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading 3D Periodic Table...</p>
+    </div>
+    
+    <div id="app">
+        <header>
+            <h1>3D Interactive Periodic Table</h1>
+            <div class="controls">
+                <button id="resetView">Reset View</button>
+                <button id="toggleAnimation">Toggle Animation</button>
+                <select id="viewMode">
+                    <option value="default">Default View</option>
+                    <option value="category">By Category</option>
+                    <option value="period">By Period</option>
+                    <option value="group">By Group</option>
+                </select>
+            </div>
+        </header>
+        
+        <div id="scene-container"></div>
+        
+        <div id="element-info" class="hidden">
+            <div class="element-card">
+                <div class="element-header">
+                    <span class="atomic-number"></span>
+                    <span class="element-symbol"></span>
+                </div>
+                <h3 class="element-name"></h3>
+                <div class="element-details">
+                    <p><strong>Atomic Mass:</strong> <span class="atomic-mass"></span></p>
+                    <p><strong>Category:</strong> <span class="category"></span></p>
+                    <p><strong>Electron Configuration:</strong> <span class="electron-config"></span></p>
+                    <p><strong>Discovered:</strong> <span class="discovered"></span></p>
+                </div>
+                <button id="closeInfo">×</button>
+            </div>
+        </div>
+        
+        <div id="legend">
+            <h4>Element Categories</h4>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="color-box alkali-metal"></div>
+                    <span>Alkali Metals</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box alkaline-earth"></div>
+                    <span>Alkaline Earth</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box transition-metal"></div>
+                    <span>Transition Metals</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box post-transition"></div>
+                    <span>Post-transition</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box metalloid"></div>
+                    <span>Metalloids</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box nonmetal"></div>
+                    <span>Nonmetals</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box halogen"></div>
+                    <span>Halogens</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box noble-gas"></div>
+                    <span>Noble Gases</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box lanthanide"></div>
+                    <span>Lanthanides</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box actinide"></div>
+                    <span>Actinides</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="elements-data.js"></script>
+    <script src="periodic-table.js"></script>
 </body>
 </html>
